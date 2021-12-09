@@ -70,7 +70,7 @@ class SearchPage extends StatelessWidget {
                 )
               ],
             ),
-          )
+          ),
       ),
     );
   }

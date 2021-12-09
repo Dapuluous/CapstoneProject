@@ -66,6 +66,28 @@ class SettingsPage extends StatelessWidget {
                 );
               },
             ),
+
+            ListTile(
+              leading: Icon(Icons.door_back_door_outlined),
+              title: Text("Logout"),
+              onTap: () => showDialog<String>(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: const Text('Alert'),
+                  content: const Text('Apakah anda ingin logout?'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'Tidak'),
+                      child: const Text('Tidak'),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'Ya'),
+                      child: const Text('Ya'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
