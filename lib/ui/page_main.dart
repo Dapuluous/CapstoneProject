@@ -1,3 +1,4 @@
+import 'package:capstone_project/ui/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:capstone_project/ui/ui_main/home_page.dart';
@@ -81,7 +82,10 @@ class SettingsPage extends StatelessWidget {
                       child: const Text('Tidak'),
                     ),
                     TextButton(
-                      onPressed: () => Navigator.pop(context, 'Ya'),
+                      onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginPage()),
+                      ),
                       child: const Text('Ya'),
                     ),
                   ],

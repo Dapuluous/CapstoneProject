@@ -16,16 +16,18 @@ class LoginPage extends StatelessWidget {
           children: <Widget>[
             SizedBox(height: 80,),
             Header(),
-            Expanded(child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(60),
-                      topRight: Radius.circular(60)
-                  )
-              ),
-              child: InputWrapper(),
-            ))
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(60),
+                        topRight: Radius.circular(60)
+                    )
+                ),
+                child: InputWrapper(),
+              )
+            ),
           ],
         ),
       ),
