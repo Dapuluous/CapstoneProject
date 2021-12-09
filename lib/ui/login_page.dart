@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'Login/Header.dart';
-import 'Login/InputWrapper.dart';
+import 'package:capstone_project/ui/ui_login/Header.dart';
+import 'package:capstone_project/ui/ui_login/InputWrapper.dart';
 
 class LoginPage extends StatelessWidget {
   @override
