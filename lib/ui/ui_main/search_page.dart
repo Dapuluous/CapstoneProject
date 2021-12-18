@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 class SearchPage extends StatefulWidget {
-  const SearchPage({Key? key}) : super(key: key);
-
   @override
   _SearchPageState createState() => new _SearchPageState();
 }

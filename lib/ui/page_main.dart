@@ -1,4 +1,5 @@
 import 'package:capstone_project/ui/login_page.dart';
+import 'package:capstone_project/ui/ui_main/file_manager_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:capstone_project/ui/ui_main/home_page.dart';
@@ -21,6 +22,10 @@ class PageMain extends StatelessWidget {
             label: "Pencarian",
           ),
           BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.folder_circle),
+            label: "Upload Manager",
+          ),
+          BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.heart_circle_fill),
             label: "Favorit",
           ),
@@ -37,8 +42,10 @@ class PageMain extends StatelessWidget {
           case 1:
             return SearchPage();
           case 2:
-            return FavoritePage(items: List<String>.generate(3, (i) => 'Item $i'));
+            return FileManagerPage();
           case 3:
+            return FavoritePage(items: List<String>.generate(3, (i) => 'Item $i'));
+          case 4:
             return SettingsPage();
           default:
             return const Center(

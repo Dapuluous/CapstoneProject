@@ -28,76 +28,86 @@ class PageDetail extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Container(
+            SizedBox(
+              height: 160,
+              child: Container(
+                height: double.infinity,
+                width: double.infinity,
                 decoration: const BoxDecoration(
-                  color: Colors.grey,
+                  color: Color(0xFFe0e0e0),
                   borderRadius: BorderRadius.only(bottomLeft: Radius.circular(35), bottomRight: Radius.circular(35)),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(150),
-                  child: Container(
-                    width: double.infinity,
-                    child: const Text(
-                      "Judul Buku Disini",
-                      textAlign: TextAlign.center,
+                child: const Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Judul Materi",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.blue,
                     ),
                   ),
-                )
+                ),
+              ),
             ),
 
             Padding(
               padding: const EdgeInsets.only(top: 25, left: 15, right:15),
-              child: Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    const Text(
-                      "Nama Author",
-                      style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold
-                      ),
-                    ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const <Widget>[
+                          Text(
+                            "Nama Author",
+                            style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold
+                            ),
+                          ),
 
-                    const Padding(
-                      padding: EdgeInsets.only(top: 5.0),
-                      child: Text(
-                        "Pekerjaan Author",
-                        style: TextStyle(
-                            color: Colors.blue
-                        ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 5.0),
+                            child: Text(
+                              "Pekerjaan Author",
+                              style: TextStyle(
+                                  color: Colors.blue
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
 
-                    const Padding(
-                      padding: EdgeInsets.only(top: 5.0),
-                      child: Divider(
-                        color: Colors.grey,
-                      ),
-                    ),
+                      const Icon(
+                        Icons.download,
+                      )
+                    ],
+                  ),
 
-                    Padding(
-                      padding: const EdgeInsets.only(top: 5.0, bottom: 10.0),
-                      child: Text(
-                        textDummy,
-                        textAlign: TextAlign.justify,
-                      ),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 5.0),
+                    child: Divider(
+                      color: Colors.grey,
                     ),
-                  ],
-                ),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0, bottom: 10.0),
+                    child: Text(
+                      textDummy,
+                      textAlign: TextAlign.justify,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          // Add your onPressed code here!
-        },
-        backgroundColor: Colors.blue,
-        label: Text("Unduh"),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

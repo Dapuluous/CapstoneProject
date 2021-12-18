@@ -6,6 +6,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext Context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         width: double.infinity,
         decoration: BoxDecoration(
@@ -26,7 +27,7 @@ class LoginPage extends StatelessWidget {
                     )
                 ),
                 child: InputWrapper(),
-              )
+              ),
             ),
           ],
         ),
