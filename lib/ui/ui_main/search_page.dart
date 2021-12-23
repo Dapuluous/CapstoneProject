@@ -1,6 +1,7 @@
-import 'package:capstone_project/ui/page_detail.dart';
+import 'package:capstone_project/api/api_service.dart';
+import 'package:capstone_project/model/materi.dart';
+import 'package:capstone_project/ui/card/card_materi.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 
 class SearchPage extends StatefulWidget {
   @override
@@ -9,11 +10,12 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   TextEditingController editingController = TextEditingController();
-  final items = List<String>.generate(3, (i) => "Item $i");
+  late Future<Materi> materi;
 
   @override
   void initState() {
     super.initState();
+    materi = ApiService().getMateriLimit();
   }
 
   @override
@@ -127,52 +129,29 @@ class _SearchPageState extends State<SearchPage> {
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Container(
-                  child: ListView.builder(
-                    padding: EdgeInsets.zero,
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemCount: items.length,
-                    itemBuilder: (context, index) {
-                      if (editingController.text.isEmpty) {
-                        return Padding(
-                          padding: EdgeInsets.only(bottom: 5),
-                          child: Card(
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => PageDetail()),
-                                );
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(bottom: 10, left: 10, top: 10),
-                                child: Text(items[index]),
-                              ),
-                            ),
-                          ),
-                        );
-                      } else if (items[index].toLowerCase().contains(editingController.text)) {
-                        return Padding(
-                          padding: EdgeInsets.only(bottom: 5),
-                          child: Card(
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => PageDetail()),
-                                );
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(bottom: 10, left: 10, top: 10),
-                                child: Text(items[index]),
-                              ),
-                            ),
-                          ),
-                        );
+                  child: FutureBuilder(
+                    future: materi,
+                    builder: (context, AsyncSnapshot<Materi> snapshot) {
+                      var state = snapshot.connectionState;
+                      if (state != ConnectionState.done) {
+                        return Center(child: CircularProgressIndicator());
                       } else {
-                        return Container();
+                        if (snapshot.hasData) {
+                          return ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: snapshot.data?.data.length,
+                            itemBuilder: (context, index) {
+                              var data = snapshot.data?.data[index];
+                              return CardMateri(datum: data!);
+                            },
+                          );
+                        } else if (snapshot.hasError) {
+                          return Text("Tidak Ditemukan Data");
+                        } else {
+                          return Text("Tidak Ditemukan Data");
+                        }
                       }
-                    }
+                    },
                   ),
                 ),
               ),

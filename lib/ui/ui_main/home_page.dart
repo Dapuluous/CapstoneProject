@@ -1,9 +1,21 @@
+import 'package:capstone_project/api/api_service.dart';
+import 'package:capstone_project/model/materi.dart';
+import 'package:capstone_project/ui/card/card_materi.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 
-class HomePage extends StatelessWidget {
-  final List<String> items;
-  const HomePage({Key? key, required this.items}) : super(key: key);
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late Future<Materi> materi;
+
+  @override
+  void initState() {
+    super.initState();
+    materi = ApiService().getMateriLimit();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +50,11 @@ class HomePage extends StatelessWidget {
                           child: SizedBox(
                             height: 80,
                             child: Text(
-                                "Selamat Datang, User",
+                              "Selamat Datang, User",
                               style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white
                               ),
                             ),
                           ),
@@ -107,11 +119,11 @@ class HomePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     const Text(
-                      "Materi Baru!",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25,
-                      )
+                        "Materi Baru!",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
+                        )
                     ),
 
                     const Padding(
@@ -126,22 +138,46 @@ class HomePage extends StatelessWidget {
 
                     Padding(
                       padding: const EdgeInsets.only(top: 10.0),
-                      child: ListView.builder(
-                        padding: EdgeInsets.zero,
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemCount: items.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 5),
-                            child: Card(
-                              child: Padding(
-                                padding: const EdgeInsets.only(bottom: 10, left: 10, top: 10),
-                                child: Text(items[index]),
-                              ),
-                            ),
-                          );
+                      child: FutureBuilder(
+                        future: materi,
+                        builder: (context, AsyncSnapshot<Materi> snapshot) {
+                          var state = snapshot.connectionState;
+                          if (state != ConnectionState.done) {
+                            return Center(child: CircularProgressIndicator());
+                          } else {
+                            if (snapshot.hasData) {
+                              return ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: snapshot.data?.data.length,
+                                itemBuilder: (context, index) {
+                                  var data = snapshot.data?.data[index];
+                                  return CardMateri(datum: data!);
+                                },
+                              );
+                            } else if (snapshot.hasError) {
+                              return Text("Tidak Ditemukan Data");;
+                            } else {
+                              return Text("Tidak Ditemukan Data");;
+                            }
+                          }
                         },
+                        // child: ListView.builder(
+                        //   padding: EdgeInsets.zero,
+                        //   scrollDirection: Axis.vertical,
+                        //   shrinkWrap: true,
+                        //   itemCount: widget.items.length,
+                        //   itemBuilder: (context, index) {
+                        //     return Padding(
+                        //       padding: const EdgeInsets.only(bottom: 5),
+                        //       child: Card(
+                        //         child: Padding(
+                        //           padding: const EdgeInsets.only(bottom: 10, left: 10, top: 10),
+                        //           child: Text(widget.items[index]),
+                        //         ),
+                        //       ),
+                        //     );
+                        //   },
+                        // ),
                       ),
                     ),
                   ],
@@ -149,8 +185,8 @@ class HomePage extends StatelessWidget {
               ),
 
               const Divider(
-                thickness: 5,
-                color: Color(0xff16185078)
+                  thickness: 5,
+                  color: Color(0xff16185078)
               ),
 
               Padding(

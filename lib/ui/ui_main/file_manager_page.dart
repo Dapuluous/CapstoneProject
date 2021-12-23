@@ -1,7 +1,8 @@
-import 'package:capstone_project/ui/ui_form/tambah_materi.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:capstone_project/api/api_service.dart';
+import 'package:capstone_project/model/materi.dart';
+import 'package:capstone_project/ui/card/card_materi_extra.dart';
+import 'package:capstone_project/ui/webview/webview_tambah_materi.dart';
 import 'package:flutter/material.dart';
-import '../page_detail.dart';
 
 class FileManagerPage extends StatefulWidget {
   @override
@@ -9,8 +10,13 @@ class FileManagerPage extends StatefulWidget {
 }
 
 class _FileManagerPageState extends State<FileManagerPage> {
-  TextEditingController editingController = TextEditingController();
-  final items = List<String>.generate(3, (i) => "Item $i");
+  late Future<Materi> materi;
+
+  @override
+  void initState() {
+    super.initState();
+    materi = ApiService().getMateriLimit();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +36,9 @@ class _FileManagerPageState extends State<FileManagerPage> {
                         height: 135,
                         decoration: BoxDecoration(
                           color: Colors.blue,
-                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(35), bottomRight: Radius.circular(35)),
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(35),
+                              bottomRight: Radius.circular(35)),
                         ),
                       ),
                     ),
@@ -50,16 +58,13 @@ class _FileManagerPageState extends State<FileManagerPage> {
                                 style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.white
-                                ),
+                                    color: Colors.white),
                               ),
                               Padding(
                                 padding: EdgeInsets.only(top: 5.0),
                                 child: Text(
                                   "Kelola Materi Yang Kamu Upload",
-                                  style: TextStyle(
-                                      color: Colors.white
-                                  ),
+                                  style: TextStyle(color: Colors.white),
                                 ),
                               ),
                             ],
@@ -82,7 +87,8 @@ class _FileManagerPageState extends State<FileManagerPage> {
                                 color: const Color(0xFFe0e0e0),
                                 spreadRadius: 1,
                                 blurRadius: 4,
-                                offset: Offset(0, 2), // changes position of shadow
+                                offset:
+                                    Offset(0, 2), // changes position of shadow
                               ),
                             ],
                           ),
@@ -95,9 +101,11 @@ class _FileManagerPageState extends State<FileManagerPage> {
                                 width: double.infinity,
                                 child: ElevatedButton.icon(
                                   onPressed: () {
+                                    Navigator.pop(context);
                                     Navigator.push(
                                       context,
-                                      MaterialPageRoute(builder: (context) => TambahMateri()),
+                                      MaterialPageRoute(
+                                          builder: (context) => WebViewTambahMateri()),
                                     );
                                   },
                                   icon: Icon(Icons.add),
@@ -113,56 +121,32 @@ class _FileManagerPageState extends State<FileManagerPage> {
                 ],
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Container(
-                child: ListView.builder(
-                    padding: EdgeInsets.zero,
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemCount: items.length,
-                    itemBuilder: (context, index) {
-                      if (editingController.text.isEmpty) {
-                        return Padding(
-                          padding: EdgeInsets.only(bottom: 5),
-                          child: Card(
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => PageDetail()),
-                                );
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(bottom: 10, left: 10, top: 10),
-                                child: Text(items[index]),
-                              ),
-                            ),
-                          ),
+                child: FutureBuilder(
+                  future: materi,
+                  builder: (context, AsyncSnapshot<Materi> snapshot) {
+                    var state = snapshot.connectionState;
+                    if (state != ConnectionState.done) {
+                      return Center(child: CircularProgressIndicator());
+                    } else {
+                      if (snapshot.hasData) {
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: snapshot.data?.data.length,
+                          itemBuilder: (context, index) {
+                            var data = snapshot.data?.data[index];
+                            return CardMateriExtra(datum: data!);
+                          },
                         );
-                      } else if (items[index].toLowerCase().contains(editingController.text)) {
-                        return Padding(
-                          padding: EdgeInsets.only(bottom: 5),
-                          child: Card(
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => PageDetail()),
-                                );
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(bottom: 10, left: 10, top: 10),
-                                child: Text(items[index]),
-                              ),
-                            ),
-                          ),
-                        );
+                      } else if (snapshot.hasError) {
+                        return Text("Tidak Ditemukan Data");
                       } else {
-                        return Container();
+                        return Text("Tidak Ditemukan Data");
                       }
                     }
+                  },
                 ),
               ),
             ),
