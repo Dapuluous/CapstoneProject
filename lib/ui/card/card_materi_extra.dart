@@ -1,5 +1,6 @@
 import 'package:capstone_project/api/api_service.dart';
 import 'package:capstone_project/model/materi.dart';
+import 'package:capstone_project/ui/page_detail.dart';
 import 'package:capstone_project/ui/webview/webview_edit_materi.dart';
 import 'package:flutter/material.dart';
 
@@ -27,8 +28,18 @@ class _CardMateriState extends State<CardMateriExtra> {
                   children: <Widget>[
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("${widget.datum.judulMateri}\n${widget.datum.idUser}")
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width*0.5,
+                          child: Text(
+                            widget.datum.judulMateri,
+                            style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold
+                            ),
+                          ),
+                        ),
+                        Text("Untuk kalangan pelajar tingkat ${widget.datum.namaKategori}"),
                       ],
                     ),
 
@@ -36,7 +47,7 @@ class _CardMateriState extends State<CardMateriExtra> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         IconButton(
-                          icon: Icon(Icons.edit, color: Colors.blue, size: 25),
+                          icon: const Icon(Icons.edit, color: Colors.blue, size: 25),
                           onPressed: () {
                             Navigator.push(
                                 context,
@@ -46,7 +57,7 @@ class _CardMateriState extends State<CardMateriExtra> {
                         ),
 
                         IconButton(
-                          icon: Icon(Icons.delete, color: Colors.blue, size: 25),
+                          icon: const Icon(Icons.delete, color: Colors.blue, size: 25),
                           onPressed: () {
                             ApiService().deleteMateri(widget.datum.idMateri);
                           },
@@ -59,10 +70,10 @@ class _CardMateriState extends State<CardMateriExtra> {
             ),
           ),
           onTap: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => DetailMateriPage(datum: widget.datum)),
-            // );
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => PageDetail(datum: widget.datum)),
+            );
           },
         ),
       ),

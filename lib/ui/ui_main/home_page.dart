@@ -86,20 +86,19 @@ class _HomePageState extends State<HomePage> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: const <Widget>[
-                                    Text(
-                                      "123\nFile Materi",
-                                      textAlign: TextAlign.center,
-                                    ),
+                                  children: <Widget>[
+                                    FutureBuilder<Materi>(
+                                      future: materi,
+                                      builder: (context, snapshot) {
+                                        if (snapshot.hasData) {
+                                          return Text("${snapshot.data!.total}\nTotal Materi", textAlign: TextAlign.center);
+                                        } else if (snapshot.hasError) {
+                                          return Text('${snapshot.error}');
+                                        }
 
-                                    Text(
-                                      "0\nUnduhan",
-                                      textAlign: TextAlign.center,
-                                    ),
-
-                                    Text(
-                                      "0\nTotal Favorit",
-                                      textAlign: TextAlign.center,
+                                        // By default, show a loading spinner.
+                                        return const CircularProgressIndicator();
+                                      },
                                     ),
                                   ],
                                 ),
@@ -118,7 +117,7 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const Text(
+                    Text(
                         "Materi Baru!",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -143,7 +142,7 @@ class _HomePageState extends State<HomePage> {
                         builder: (context, AsyncSnapshot<Materi> snapshot) {
                           var state = snapshot.connectionState;
                           if (state != ConnectionState.done) {
-                            return Center(child: CircularProgressIndicator());
+                            return const Center(child: CircularProgressIndicator());
                           } else {
                             if (snapshot.hasData) {
                               return ListView.builder(
@@ -155,29 +154,12 @@ class _HomePageState extends State<HomePage> {
                                 },
                               );
                             } else if (snapshot.hasError) {
-                              return Text("Tidak Ditemukan Data");;
+                              return Text(snapshot.error.toString());
                             } else {
-                              return Text("Tidak Ditemukan Data");;
+                              return const Text("Tidak Ditemukan Data");
                             }
                           }
                         },
-                        // child: ListView.builder(
-                        //   padding: EdgeInsets.zero,
-                        //   scrollDirection: Axis.vertical,
-                        //   shrinkWrap: true,
-                        //   itemCount: widget.items.length,
-                        //   itemBuilder: (context, index) {
-                        //     return Padding(
-                        //       padding: const EdgeInsets.only(bottom: 5),
-                        //       child: Card(
-                        //         child: Padding(
-                        //           padding: const EdgeInsets.only(bottom: 10, left: 10, top: 10),
-                        //           child: Text(widget.items[index]),
-                        //         ),
-                        //       ),
-                        //     );
-                        //   },
-                        // ),
                       ),
                     ),
                   ],
@@ -195,7 +177,7 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     const Text(
-                        "Kategori",
+                        "Coming Soon",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 25,
@@ -205,42 +187,10 @@ class _HomePageState extends State<HomePage> {
                     const Padding(
                       padding: EdgeInsets.only(top: 5),
                       child: Text(
-                        "Kategori Rekomendasi Untukmu!",
+                        "Stay tuned untuk fitur lainnya di aplikasi kami!",
                         style: TextStyle(
                           color: Colors.grey,
                         ),
-                      ),
-                    ),
-
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: const <Widget>[
-                          SizedBox(
-                            width: 120,
-                            height: 120,
-                            child: Card(
-                              child: Center(child: Text("Kategori")),
-                            ),
-                          ),
-
-                          SizedBox(
-                            width: 120,
-                            height: 120,
-                            child: Card(
-                              child: Center(child: Text("Kategori")),
-                            ),
-                          ),
-
-                          SizedBox(
-                            width: 120,
-                            height: 120,
-                            child: Card(
-                              child: Center(child: Text("Kategori")),
-                            ),
-                          ),
-                        ],
                       ),
                     ),
                   ],

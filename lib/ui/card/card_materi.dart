@@ -1,4 +1,5 @@
 import 'package:capstone_project/model/materi.dart';
+import 'package:capstone_project/ui/page_detail.dart';
 import 'package:flutter/material.dart';
 
 class CardMateri extends StatefulWidget {
@@ -20,15 +21,27 @@ class _CardMateriState extends State<CardMateri> {
             child: Card(
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
-                child: Text("${widget.datum.judulMateri}\n${widget.datum.idUser}"),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "${widget.datum.judulMateri}",
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    Text("Untuk kalangan pelajar tingkat ${widget.datum.namaKategori}"),
+                  ],
+                ),
               ),
             ),
           ),
           onTap: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => DetailMateriPage(datum: widget.datum)),
-            // );
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => PageDetail(datum: widget.datum)),
+            );
           },
         ),
       ),

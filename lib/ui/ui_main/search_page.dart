@@ -1,11 +1,12 @@
 import 'package:capstone_project/api/api_service.dart';
 import 'package:capstone_project/model/materi.dart';
 import 'package:capstone_project/ui/card/card_materi.dart';
+import 'package:capstone_project/ui/ui_main/search_result_page.dart';
 import 'package:flutter/material.dart';
 
 class SearchPage extends StatefulWidget {
   @override
-  _SearchPageState createState() => new _SearchPageState();
+  _SearchPageState createState() => _SearchPageState();
 }
 
 class _SearchPageState extends State<SearchPage> {
@@ -34,7 +35,7 @@ class _SearchPageState extends State<SearchPage> {
                         alignment: Alignment.topCenter,
                         child: Container(
                           height: 135,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Colors.blue,
                             borderRadius: BorderRadius.only(bottomLeft: Radius.circular(35), bottomRight: Radius.circular(35)),
                           ),
@@ -105,12 +106,21 @@ class _SearchPageState extends State<SearchPage> {
                                   decoration: InputDecoration(
                                     labelText: "Cari Materi",
                                     suffixIcon: IconButton(
-                                      icon: Icon(Icons.close),
+                                      icon: const Icon(Icons.search),
                                       onPressed: () {
-                                        FocusManager.instance.primaryFocus!.unfocus();
-                                        editingController.clear();
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (context) => SearchResultPage(keyword: editingController.text)),
+                                        );
                                       },
                                     ),
+                                    // suffixIcon: IconButton(
+                                    //   icon: Icon(Icons.close),
+                                    //   onPressed: () {
+                                    //     FocusManager.instance.primaryFocus!.unfocus();
+                                    //     editingController.clear();
+                                    //   },
+                                    // ),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
                                     ),

@@ -15,7 +15,7 @@ class _FileManagerPageState extends State<FileManagerPage> {
   @override
   void initState() {
     super.initState();
-    materi = ApiService().getMateriLimit();
+    materi = ApiService().getMateri();
   }
 
   @override
@@ -34,7 +34,7 @@ class _FileManagerPageState extends State<FileManagerPage> {
                       alignment: Alignment.topCenter,
                       child: Container(
                         height: 135,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.blue,
                           borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(35),
@@ -101,7 +101,6 @@ class _FileManagerPageState extends State<FileManagerPage> {
                                 width: double.infinity,
                                 child: ElevatedButton.icon(
                                   onPressed: () {
-                                    Navigator.pop(context);
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -121,9 +120,9 @@ class _FileManagerPageState extends State<FileManagerPage> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Container(
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
                 child: FutureBuilder(
                   future: materi,
                   builder: (context, AsyncSnapshot<Materi> snapshot) {

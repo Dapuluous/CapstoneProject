@@ -23,6 +23,15 @@ class ApiService {
     }
   }
 
+  Future<Materi> getMateriSearch(String keywordSearch) async {
+    final response = await http.get(Uri.parse("$_baseUrl/getMateriSearch.php?keyword=$keywordSearch"));
+    if (response.statusCode == 200) {
+      return Materi.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to load top headlines');
+    }
+  }
+
   Future<http.Response> deleteMateri(String id) async {
     final http.Response response = await http.delete(
       Uri.parse("$_baseUrl/deleteMateri.php?id_materi=$id"),

@@ -12,8 +12,8 @@ class _WebViewTambahMateriState extends State<WebViewTambahMateri> {
   Widget build(BuildContext context) {
     return WebviewScaffold(
       url: "https://csd137capstone.dapuluous.me/insertMateri.php",
-      appBar: new AppBar(
-        title: new Text("Tambah Data materi"),
+      appBar: AppBar(
+        title: const Text("Tambah Data materi"),
       ),
     );
   }

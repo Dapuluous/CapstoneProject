@@ -37,29 +37,29 @@ class Datum {
     required this.idMateri,
     required this.judulMateri,
     required this.linkMateri,
-    required this.idUser,
-    required this.idKategori,
+    required this.deskripsi,
+    required this.namaKategori,
   });
 
   String idMateri;
   String judulMateri;
   String linkMateri;
-  String idUser;
-  String idKategori;
+  String deskripsi;
+  String namaKategori;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     idMateri: json["id_materi"],
     judulMateri: json["judul_materi"],
     linkMateri: json["link_materi"],
-    idUser: json["id_user"],
-    idKategori: json["id_kategori"],
+    deskripsi: json["deskripsi"],
+    namaKategori: json["nama_kategori"]
   );
 
   Map<String, dynamic> toJson() => {
     "id_materi": idMateri,
     "judul_materi": judulMateri,
     "link_materi": linkMateri,
-    "id_user": idUser,
-    "id_kategori": idKategori,
+    "deskripsi": deskripsi,
+    "nama_kategori": namaKategori,
   };
 }

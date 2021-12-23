@@ -1,7 +1,10 @@
+import 'package:capstone_project/model/materi.dart';
+import 'package:capstone_project/ui/webview/webview_download_materi.dart';
 import 'package:flutter/material.dart';
 
 class PageDetail extends StatelessWidget {
-  PageDetail({Key? key}) : super(key: key);
+  final Datum datum;
+  PageDetail({required this.datum});
 
   var textDummy = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, "
       "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
@@ -37,14 +40,17 @@ class PageDetail extends StatelessWidget {
                   color: Color(0xFFe0e0e0),
                   borderRadius: BorderRadius.only(bottomLeft: Radius.circular(35), bottomRight: Radius.circular(35)),
                 ),
-                child: const Align(
+                child: Align(
                   alignment: Alignment.center,
-                  child: Text(
-                    "Judul Materi",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.blue,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width*0.8,
+                    child: Text(
+                      datum.judulMateri,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        color: Colors.blue,
+                      ),
                     ),
                   ),
                 ),
@@ -61,20 +67,23 @@ class PageDetail extends StatelessWidget {
                     children: <Widget>[
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const <Widget>[
-                          Text(
-                            "Nama Author",
-                            style: TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold
+                        children: <Widget>[
+                          Container(
+                            width: MediaQuery.of(context).size.width*0.8,
+                            child: Text(
+                              datum.judulMateri,
+                              style: const TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold
+                              ),
                             ),
                           ),
 
                           Padding(
-                            padding: EdgeInsets.only(top: 5.0),
+                            padding: const EdgeInsets.only(top: 5.0),
                             child: Text(
-                              "Pekerjaan Author",
-                              style: TextStyle(
+                              "Untuk kalangan pelajar tingkat ${datum.namaKategori}",
+                              style: const TextStyle(
                                   color: Colors.blue
                               ),
                             ),
@@ -82,9 +91,15 @@ class PageDetail extends StatelessWidget {
                         ],
                       ),
 
-                      const Icon(
-                        Icons.download,
-                      )
+                      IconButton(
+                        icon: const Icon(Icons.download, color: Colors.blue, size: 25),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => WebViewDownloadMateri(datum: datum))
+                          );
+                        },
+                      ),
                     ],
                   ),
 
@@ -98,7 +113,7 @@ class PageDetail extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 5.0, bottom: 10.0),
                     child: Text(
-                      textDummy,
+                      datum.deskripsi,
                       textAlign: TextAlign.justify,
                     ),
                   ),
