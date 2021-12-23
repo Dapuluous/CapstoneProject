@@ -48,30 +48,3 @@ class PageMain extends StatelessWidget {
     );
   }
 }
-
-class SettingsPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("Settings"),
-        ),
-        body: ListView(
-          children: <Widget>[
-            ListTile(
-              leading: Icon(Icons.person),
-              title: Text("About"),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => AboutPage()),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}

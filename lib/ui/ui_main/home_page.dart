@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                                         if (snapshot.hasData) {
                                           return Text("${snapshot.data!.total}\nTotal Materi", textAlign: TextAlign.center);
                                         } else if (snapshot.hasError) {
-                                          return Text('${snapshot.error}');
+                                          return Text("Silahkan cek koneksi internet anda.");
                                         }
 
                                         // By default, show a loading spinner.
@@ -154,7 +154,7 @@ class _HomePageState extends State<HomePage> {
                                 },
                               );
                             } else if (snapshot.hasError) {
-                              return Text(snapshot.error.toString());
+                              return Text("Silahkan cek koneksi internet anda.");
                             } else {
                               return const Text("Tidak Ditemukan Data");
                             }
@@ -175,8 +175,8 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.all(15.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    const Text(
+                  children: const <Widget>[
+                    Text(
                         "Coming Soon",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -184,7 +184,7 @@ class _HomePageState extends State<HomePage> {
                         )
                     ),
 
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.only(top: 5),
                       child: Text(
                         "Stay tuned untuk fitur lainnya di aplikasi kami!",

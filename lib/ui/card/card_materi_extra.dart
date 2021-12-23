@@ -1,6 +1,7 @@
 import 'package:capstone_project/api/api_service.dart';
 import 'package:capstone_project/model/materi.dart';
 import 'package:capstone_project/ui/page_detail.dart';
+import 'package:capstone_project/ui/page_main.dart';
 import 'package:capstone_project/ui/webview/webview_edit_materi.dart';
 import 'package:flutter/material.dart';
 
@@ -49,6 +50,7 @@ class _CardMateriState extends State<CardMateriExtra> {
                         IconButton(
                           icon: const Icon(Icons.edit, color: Colors.blue, size: 25),
                           onPressed: () {
+                            Navigator.pop(context);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) => WebViewEditMateri(datum: widget.datum))
@@ -59,7 +61,30 @@ class _CardMateriState extends State<CardMateriExtra> {
                         IconButton(
                           icon: const Icon(Icons.delete, color: Colors.blue, size: 25),
                           onPressed: () {
-                            ApiService().deleteMateri(widget.datum.idMateri);
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Text('Alert'),
+                                content: Text('Apakah anda ingin menghapus data "${widget.datum.judulMateri}"?'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context, 'Tidak'),
+                                    child: const Text('Tidak'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context, 'Ya');
+                                      ApiService().deleteMateri(widget.datum.idMateri);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => PageMain()),
+                                      );
+                                    },
+                                    child: const Text('Ya'),
+                                  ),
+                                ],
+                              )
+                            );
                           },
                         ),
                       ],

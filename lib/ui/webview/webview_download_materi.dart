@@ -16,7 +16,7 @@ class _WebViewDownloadMateriState extends State<WebViewDownloadMateri> {
     return WebviewScaffold(
       url: widget.datum.linkMateri,
       appBar: AppBar(
-        title: const Text("Edit Data materi"),
+        title: const Text("Download Materi"),
       ),
     );
   }
