@@ -25,7 +25,7 @@ class _CardMateriState extends State<CardMateri> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "${widget.datum.judulMateri}",
+                      widget.datum.judulMateri,
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold

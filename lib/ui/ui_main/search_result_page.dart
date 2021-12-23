@@ -32,31 +32,29 @@ class _SearchResultPageState extends State<SearchResultPage> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(15.0),
-              child: Container(
-                child: FutureBuilder(
-                  future: materi,
-                  builder: (context, AsyncSnapshot<Materi> snapshot) {
-                    var state = snapshot.connectionState;
-                    if (state != ConnectionState.done) {
-                      return const Center(child: CircularProgressIndicator());
+              child: FutureBuilder(
+                future: materi,
+                builder: (context, AsyncSnapshot<Materi> snapshot) {
+                  var state = snapshot.connectionState;
+                  if (state != ConnectionState.done) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else {
+                    if (snapshot.hasData) {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: snapshot.data?.data.length,
+                        itemBuilder: (context, index) {
+                          var data = snapshot.data?.data[index];
+                          return CardMateri(datum: data!);
+                        },
+                      );
+                    } else if (snapshot.hasError) {
+                      return const Text("Tidak Ditemukan Data");
                     } else {
-                      if (snapshot.hasData) {
-                        return ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: snapshot.data?.data.length,
-                          itemBuilder: (context, index) {
-                            var data = snapshot.data?.data[index];
-                            return CardMateri(datum: data!);
-                          },
-                        );
-                      } else if (snapshot.hasError) {
-                        return Text("Tidak Ditemukan Data");
-                      } else {
-                        return Text("Tidak Ditemukan Data");
-                      }
+                      return const Text("Tidak Ditemukan Data");
                     }
-                  },
-                ),
+                  }
+                },
               ),
             ),
           ],

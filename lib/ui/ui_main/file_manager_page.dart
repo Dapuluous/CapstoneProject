@@ -24,7 +24,7 @@ class _FileManagerPageState extends State<FileManagerPage> {
       child: Scaffold(
         body: Column(
           children: <Widget>[
-            Container(
+            SizedBox(
               height: 160,
               child: Stack(
                 alignment: Alignment.center,
@@ -48,7 +48,7 @@ class _FileManagerPageState extends State<FileManagerPage> {
                       alignment: Alignment.centerLeft,
                       child: Padding(
                         padding: const EdgeInsets.only(left: 20.0),
-                        child: Container(
+                        child: SizedBox(
                           height: 100,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,11 +80,11 @@ class _FileManagerPageState extends State<FileManagerPage> {
                         widthFactor: 0.9,
                         child: Container(
                           decoration: const BoxDecoration(
-                            color: const Color(0xFFf6f6f6),
+                            color: Color(0xFFf6f6f6),
                             borderRadius: BorderRadius.all(Radius.circular(5)),
                             boxShadow: [
                               BoxShadow(
-                                color: const Color(0xFFe0e0e0),
+                                color: Color(0xFFe0e0e0),
                                 spreadRadius: 1,
                                 blurRadius: 4,
                                 offset:
@@ -97,7 +97,7 @@ class _FileManagerPageState extends State<FileManagerPage> {
                             alignment: Alignment.center,
                             child: Padding(
                               padding: const EdgeInsets.all(15.0),
-                              child: Container(
+                              child: SizedBox(
                                 width: double.infinity,
                                 child: ElevatedButton.icon(
                                   onPressed: () {
@@ -107,8 +107,8 @@ class _FileManagerPageState extends State<FileManagerPage> {
                                           builder: (context) => WebViewTambahMateri()),
                                     );
                                   },
-                                  icon: Icon(Icons.add),
-                                  label: Text("Tambah Data"),
+                                  icon: const Icon(Icons.add),
+                                  label: const Text("Tambah Data"),
                                 ),
                               ),
                             ),
@@ -128,7 +128,7 @@ class _FileManagerPageState extends State<FileManagerPage> {
                   builder: (context, AsyncSnapshot<Materi> snapshot) {
                     var state = snapshot.connectionState;
                     if (state != ConnectionState.done) {
-                      return Center(child: CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator());
                     } else {
                       if (snapshot.hasData) {
                         return ListView.builder(
@@ -140,9 +140,9 @@ class _FileManagerPageState extends State<FileManagerPage> {
                           },
                         );
                       } else if (snapshot.hasError) {
-                        return Text("Tidak Ditemukan Data");
+                        return const Text("Tidak Ditemukan Data");
                       } else {
-                        return Text("Tidak Ditemukan Data");
+                        return const Text("Tidak Ditemukan Data");
                       }
                     }
                   },

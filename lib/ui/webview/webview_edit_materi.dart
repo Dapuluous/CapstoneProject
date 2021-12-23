@@ -19,8 +19,7 @@ class _WebViewEditMateriState extends State<WebViewEditMateri> {
       appBar: AppBar(
         title: const Text("Edit Data materi"),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back
-          ),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
             Navigator.push(

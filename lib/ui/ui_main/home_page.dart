@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                                         if (snapshot.hasData) {
                                           return Text("${snapshot.data!.total}\nTotal Materi", textAlign: TextAlign.center);
                                         } else if (snapshot.hasError) {
-                                          return Text("Silahkan cek koneksi internet anda.");
+                                          return const Text("Silahkan cek koneksi internet anda.");
                                         }
 
                                         // By default, show a loading spinner.
@@ -117,7 +117,7 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
+                    const Text(
                         "Materi Baru!",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -154,7 +154,7 @@ class _HomePageState extends State<HomePage> {
                                 },
                               );
                             } else if (snapshot.hasError) {
-                              return Text("Silahkan cek koneksi internet anda.");
+                              return const Text("Silahkan cek koneksi internet anda.");
                             } else {
                               return const Text("Tidak Ditemukan Data");
                             }

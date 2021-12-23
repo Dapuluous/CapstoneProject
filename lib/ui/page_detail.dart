@@ -26,7 +26,7 @@ class PageDetail extends StatelessWidget {
                 ),
                 child: Align(
                   alignment: Alignment.center,
-                  child: Container(
+                  child: SizedBox(
                     width: MediaQuery.of(context).size.width*0.8,
                     child: Text(
                       datum.judulMateri,
@@ -52,7 +52,7 @@ class PageDetail extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Container(
+                          SizedBox(
                             width: MediaQuery.of(context).size.width*0.8,
                             child: Text(
                               datum.judulMateri,

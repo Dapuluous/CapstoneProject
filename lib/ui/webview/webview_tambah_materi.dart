@@ -16,7 +16,7 @@ class _WebViewTambahMateriState extends State<WebViewTambahMateri> {
       appBar: AppBar(
         title: const Text("Tambah Data materi"),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back
+          icon: const Icon(Icons.arrow_back
           ),
           onPressed: () {
             Navigator.pop(context);
